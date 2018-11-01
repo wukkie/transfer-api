@@ -1,0 +1,214 @@
+swagger: "2.0"
+info:
+  description: "This is simple API for money transfers."
+  version: "1.0.0"
+  title: "Money Transfers API"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "lukaszmg@gmail.com"
+host: "127.0.0.1:9090"
+tags:
+- name: "transfer"
+  description: "Service to transfer money from one bank account to another bank account"
+- name: "account"
+  description: "Service to manage bank accounts"
+schemes:
+- "http"
+paths:
+  /transfer:
+    put:
+      tags:
+      - "transfer"
+      summary: "Transfer money from one account to another using fees calculation strategy"
+      operationId: "transferMoney"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: from
+          in: query
+          description: Account from money will be transfered
+          type: string
+        
+        - name: to
+          in: query
+          description: Account to money will be transfered
+          type: string
+        
+        - name: amount
+          in: query
+          description: Amoubt of cash in currency Account "From"
+          type: number
+        
+        - name: feeStrategy
+          in: query
+          description: Defined strategy to calculate fee. 
+          type: string
+      responses:
+        200:
+          $ref: "#/definitions/TransferSummary"
+        400:
+          description: "Requested data are not valid"
+        404:
+          description: "Entity not found "
+    get:
+      tags:
+      - "transfer"
+      summary: "BROWSER TEST VERSION. Example: http://127.0.0.1:9090/transfer/?from=AAAA&to=990099A&amount=34&feeStrategy=STANDARD_FEE"
+      operationId: "transferMoneyBrowserVersion"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: from
+          in: query
+          description: Account from money will be transfered
+          type: string
+        
+        - name: to
+          in: query
+          description: Account to money will be transfered
+          type: string
+        
+        - name: amount
+          in: query
+          description: Amoubt of cash in currency Account "From"
+          type: number
+        
+        - name: feeStrategy
+          in: query
+          description: Defined strategy to calculate fee. 
+          type: string
+      responses:
+        200:
+          $ref: "#/definitions/TransferSummary"
+        400:
+          description: "Requested data are not valid"
+        404:
+          description: "Entity not found "  
+  /transfer/forecast:
+    get:
+      tags:
+      - "transfer"
+      summary: "Forecast money transfer"
+      description: ""
+      operationId: "addPet"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: from
+          in: query
+          description: Account from money will be transfered
+          type: string
+        
+        - name: to
+          in: query
+          description: Account to money will be transfered
+          type: string
+        
+        - name: amount
+          in: query
+          description: Amoubt of cash in currency Account "From"
+          type: string
+        
+        - name: feeStrategy
+          in: query
+          description: Defined strategy to calculate fee. 
+          type: string
+      responses:
+        200:
+          $ref: "#/definitions/TransferSummary"
+        400:
+          description: "Requested data are not valid"
+        404:
+          description: "Entity not found "
+definitions:
+  Account:
+    type: "object"
+    required:
+    - "name"
+    - "photoUrls"
+    properties:
+      number:
+        type: "string"
+      owner:
+        type: "string"
+        example: "Albert Einstein"
+      balance:
+        type: "number"
+        example: "1233.23"
+      currency:
+        $ref: "#/definitions/Currency"
+  Currency:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+  TransferSummary:
+    type: "object"
+    required:
+    - "from"
+    - "to"
+    - "amount"
+    - "feeStrategy"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      from:
+        $ref: "#/definitions/Account"
+      to:
+        $ref: "#/definitions/Account"
+      feeStrategy:
+        $ref: "#/definitions/FeeStrategy"
+      amount:
+        type: "number"
+      feeCollected:
+        type: "number"
+      exchangeRate: 
+        $ref: "#/definitions/ExchangeRate"
+      amountAfterExchange:
+          type: "number"
+  FeeStrategy:
+    type: "object"
+    properties: 
+      id: 
+        type: "number"
+      currencyFrom:
+        $ref: '#/definitions/Currency'
+      currencyTo:
+       $ref: '#/definitions/Currency'
+      feeMethod: 
+        type: "string"
+      fee:
+        type: "number"
+      active:
+        type: "boolean"
+  ExchangeRate:
+    type: "object"
+    properties: 
+      id: 
+        type: "number"
+      currencyFrom:
+        $ref: '#/definitions/Currency'
+      currencyTo:
+       $ref: '#/definitions/Currency'
+      rate: 
+        type: "number"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+ 
