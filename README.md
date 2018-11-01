@@ -2,14 +2,14 @@
 Standalone Money Transfer API server.
 
 ## Details
--- Libs: Dropwizard, h2, hibernate, lombok, maven
+- Libs: Dropwizard, h2, hibernate, lombok, maven
 
 ## Business requirements
--- Transfer money from one account to another.
--- User like to see forecast of transfer before operation.
--- Request data have to be validated.
--- Account can have different currency with different exchange rate.  
--- Fees depend on business case. 
+- Transfer money from one account to another.
+- User like to see forecast of transfer before operation.
+- Request data have to be validated.
+- Account can have different currency with different exchange rate.  
+- Fees depend on business case. 
 
 ## Run
 ```
