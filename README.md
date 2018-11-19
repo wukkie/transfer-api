@@ -1,6 +1,13 @@
 # Transfer API
 Standalone Money Transfer API server.
 
+## Version
+### 1.01
+-- Change cash field type to BigDecimal
+-- Add integration tests based on inmemory db 
+-- Add account locking to handle conccurent transfers and resource synchronization during transfer
+-- Remove some unusued code
+ 
 ## Details
 -- Libs: Dropwizard, h2, hibernate, lombok, maven
 

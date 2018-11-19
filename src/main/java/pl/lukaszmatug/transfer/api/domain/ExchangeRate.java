@@ -1,5 +1,7 @@
 package pl.lukaszmatug.transfer.api.domain;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -36,6 +38,6 @@ public class ExchangeRate {
 	@JoinColumn(name = "currency_to")
 	private Currency currencyTo; 
 	
-	private Double rate;
+	private BigDecimal rate;
 	
 }

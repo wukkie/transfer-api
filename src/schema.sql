@@ -5,6 +5,7 @@ CREATE TABLE account(
 	, owner VARCHAR(150)
 	, balance INT
 	, currency_id VARCHAR(20)
+	, locked boolean
 ); 
 
 CREATE TABLE currency(
@@ -69,8 +70,20 @@ INSERT INTO currency(id, name) VALUES('GBP', 'Pound sterling');
 INSERT INTO currency(id, name) VALUES('USD', 'United States dollar');
 
 --	 Accounts 
-INSERT INTO account(number, owner, balance, currency_id) VALUES('990099A', 'Albert Einstein', 1000.34, 'GBP'); 
-INSERT INTO account(number, owner, balance, currency_id) VALUES('AAAA', 'J. Robert Oppenheimer', 20000, 'USD'); 
+INSERT INTO account(number, owner, balance, currency_id, locked) VALUES('990099A', 'Albert Einstein', 1000.34, 'GBP', false); 
+INSERT INTO account(number, owner, balance, currency_id, locked) VALUES('AAAA', 'J. Robert Oppenheimer', 20000, 'USD', false); 
+
+
+INSERT INTO account(number, owner, balance, currency_id, locked) VALUES('STANDARD_TRASFER_IN_GBP_FROM', 'Albert Einstein', 1000, 'GBP', false);
+INSERT INTO account(number, owner, balance, currency_id, locked) VALUES('STANDARD_TRASFER_IN_GBP_TO', 'Albert Einstein', 0, 'GBP', false);
+
+INSERT INTO account(number, owner, balance, currency_id, locked) VALUES('ZERO_BALANCE_IN_GBP_FROM', 'Albert Einstein', 1000, 'GBP', false);
+INSERT INTO account(number, owner, balance, currency_id, locked) VALUES('ZERO_BALANCE_IN_GBP_TO', 'Albert Einstein', 0, 'GBP', false);
+
+
+INSERT INTO account(number, owner, balance, currency_id, locked) VALUES('STANDARD_TRASFER_IN_GBP_TO_USD_FROM', 'Albert Einstein', 1000, 'GBP', false);
+INSERT INTO account(number, owner, balance, currency_id, locked) VALUES('STANDARD_TRASFER_IN_GBP_TO_USD_TO', 'Albert Einstein', 0, 'USD', false);
+
 
 --Exchange rates data
 INSERT INTO exchange_rate(currency_from, currency_to, rate) VALUES ('GBP', 'USD', 	1.32325); 

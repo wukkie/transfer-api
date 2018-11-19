@@ -1,5 +1,7 @@
 package pl.lukaszmatug.transfer.api.domain;
 
+import java.math.BigDecimal;
+
 import lombok.Data;
 
 @Data
@@ -8,8 +10,8 @@ public class TransferSummary {
 	private Account from;
 	private Account to;
 	private FeeStrategy feeStrategy;
-	private double amount; 
-	private double feeCollected;
+	private BigDecimal amount; 
+	private BigDecimal feeCollected;
 	private ExchangeRate exchangeRate;
-	private double amountAfterExchange; 
+	private BigDecimal amountAfterExchange; 
 }

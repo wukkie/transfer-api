@@ -1,5 +1,7 @@
 package pl.lukaszmatug.transfer.api.services;
 
+import java.math.BigDecimal;
+
 import pl.lukaszmatug.transfer.api.domain.Account;
 import pl.lukaszmatug.transfer.api.domain.ExchangeRate;
 import pl.lukaszmatug.transfer.api.domain.FeeStrategy;
@@ -17,19 +19,24 @@ public class MoneyTransferValidation implements IMoneyTransferValidation{
 	}
 
 	@Override
-	public boolean amountFormatCheck(Double amount) {
+	public boolean amountFormatCheck(BigDecimal amount) {
 		if(amount == null) return false;
-		return (amount >= 0);
+		return (amount.compareTo(BigDecimal.ZERO) == 1);
 	}
 
 	@Override
-	public boolean enoughtMoney(Account account, Double amount) {
-		return (account.getBalance() >= amount);
+	public boolean enoughtMoney(Account account, BigDecimal amount) {
+		return (account.getBalance().compareTo(amount) == 1 );
 	}
 
 	@Override
 	public boolean exchangeRateExists(ExchangeRate exchangeRate) {
 		return !(exchangeRate == null);
+	}
+
+	@Override
+	public boolean accountIsLocked(Account account) {
+		return (account.isLocked());
 	}
 
 }
